@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header">Ajouter un cours</div>
+  <div class="card-body">
+    <form #courseForm="ngForm" (ngSubmit)="saveCourse(courseForm)">
+      <div class="mb-3">
+        <label for="title" class="form-label">Titre</label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Saisir le titre"
+          id="title"
+          name="title"
+          #title="ngModel"
+          [(ngModel)]="model.title"
+          required
+        />
+        @if (title.invalid && title.touched) {
+        <div class="alert alert-danger mt-2 p-1" role="alert">
+          Le titre est obligatoire
+        </div>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control form-control-sm"
+          rows="3"
+          placeholder="Entrer une description"
+          id="description"
+          name="description"
+          #description="ngModel"
+          [(ngModel)]="model.description"
+          required
+        ></textarea>
+        @if (description.invalid && description.touched) {
+        <div class="alert alert-danger p-1 mt-2">
+          La description est obligatoire
+        </div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="file" class="form-label"
+          >Choisir une image de couverture</label
+        >
+        <input
+          class="form-control form-control-sm"
+          type="file"
+          id="image"
+          accept="image/*"
+          name="image"
+          ngModel
+          (change)="onImageSelected($event)"
+          required
+        />
+
+        @if (cover) {
+        <div class="image mt-1" align="right">
+          <img [src]="cover" alt="course image" />
+        </div>
+        } @if (showError) {
+        <div class="alert alert-danger p-1 mt-2">
+          L'image de couverture est obligatoire
+        </div>
+        }
+      </div>
+
+      <div class="d-grid gap-2 col-6 mx-auto p-3 mb-3">
+        <button class="btn btn-primary" type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
