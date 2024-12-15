@@ -71,3 +71,13 @@
     </form>
   </div>
 </div>
+
+<div class="row mt-3">
+  @for (course of courses; track $index) {
+  <app-courses [course]="course" />
+  } @empty {
+  <div class="card">
+    <div class="card-body text-center">Aucun cours trouves</div>
+  </div>
+  }
+</div>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CoursesComponent } from '../courses/courses.component';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CoursesComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
@@ -13,6 +14,7 @@ export class AdminComponent {
   cover!: string;
   cover_file: any;
   showError = false;
+  courses: any[] = [];
 
   saveCourse(form: NgForm) {
     if (form.invalid || !this.cover) {
