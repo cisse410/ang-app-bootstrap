@@ -12,7 +12,7 @@ import { Strings } from '../../enum/strings.enum';
 })
 export class AdminComponent implements OnInit {
   model: any = {};
-  cover!: string;
+  cover!: string | null;
   cover_file: any;
   showError = false;
   courses: any[] = [];
@@ -41,6 +41,13 @@ export class AdminComponent implements OnInit {
 
     console.log(form.value);
     this.saveCourse(form.value);
+    this.clearForm(form);
+  }
+
+  private clearForm(form: NgForm) {
+    form.reset();
+    this.cover = null;
+    this.cover_file = null;
   }
 
   onImageSelected(event: any) {
@@ -67,6 +74,17 @@ export class AdminComponent implements OnInit {
       id: this.courses.length + 1,
     };
     this.courses = [...this.courses, data];
-    localStorage.setItem(Strings.STORAGE_KEY, JSON.stringify(this.courses));
+    this.setItem(this.courses);
+  }
+
+  deleteCourse(course: any) {
+    this.courses = this.courses.filter(
+      (course_item) => course_item.id != course.id
+    );
+    this.setItem(this.courses);
+  }
+
+  private setItem(data: any) {
+    localStorage.setItem(Strings.STORAGE_KEY, JSON.stringify(data));
   }
 }

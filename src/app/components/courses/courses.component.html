@@ -1,6 +1,11 @@
 <div class="card">
   <img [src]="course.image" class="card-img-top" alt="Image de couverture" />
   <div class="card-body">
+    @if (isDeleted) {
+    <button class="btn btn-danger" (click)="deleteCourse()">
+      <i class="bi bi-trash3-fill"></i>
+    </button>
+    }
     <h5 class="card-title">
       {{ course?.title }}
     </h5>
