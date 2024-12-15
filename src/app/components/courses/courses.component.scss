@@ -3,12 +3,13 @@
   padding: 2vh 4vh;
   height: 40vh;
   .course-image {
-    height: 20vh;
+    height: 25vh;
     width: 100%;
     background-color: #effeff;
-    background-size: 100%;
     img {
       height: 90%;
+      width: 100%;
+      object-fit: cover;
     }
   }
   p {

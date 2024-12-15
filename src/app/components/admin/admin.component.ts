@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CoursesComponent } from '../courses/courses.component';
+import { Strings } from '../../enum/strings.enum';
 
 @Component({
   selector: 'app-admin',
@@ -9,14 +10,26 @@ import { CoursesComponent } from '../courses/courses.component';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   model: any = {};
   cover!: string;
   cover_file: any;
   showError = false;
   courses: any[] = [];
 
-  saveCourse(form: NgForm) {
+  ngOnInit(): void {
+    this.getAllCourses();
+  }
+
+  private getAllCourses() {
+    const data = localStorage.getItem(Strings.STORAGE_KEY);
+    console.log(data);
+    if (data) {
+      this.courses = JSON.parse(data);
+    }
+  }
+
+  addCourse(form: NgForm) {
     if (form.invalid || !this.cover) {
       console.log('Formulaire invalide');
       form.control.markAllAsTouched();
@@ -27,6 +40,7 @@ export class AdminComponent {
     }
 
     console.log(form.value);
+    this.saveCourse(form.value);
   }
 
   onImageSelected(event: any) {
@@ -43,5 +57,16 @@ export class AdminComponent {
       reader.readAsDataURL(file);
       this.showError = false;
     }
+  }
+
+  saveCourse(formValue: any) {
+    console.log(formValue);
+    const data = {
+      ...formValue,
+      image: this.cover,
+      id: this.courses.length + 1,
+    };
+    this.courses = [...this.courses, data];
+    localStorage.setItem(Strings.STORAGE_KEY, JSON.stringify(this.courses));
   }
 }
