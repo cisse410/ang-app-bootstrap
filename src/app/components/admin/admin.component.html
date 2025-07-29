@@ -72,9 +72,9 @@
   </div>
 </div>
 
-<div class="row mt-3">
+<!-- <div class="row mt-3">
   @for (course of courses; track $index) {
-  <div class="col-lg-3">
+  <div class="">
     <app-courses
       [course]="course"
       [isDeleted]="true"
@@ -86,4 +86,15 @@
     <div class="card-body text-center">Aucun cours trouvés</div>
   </div>
   }
+</div> -->
+@for (course of courses; track $index) {
+<app-courses
+  [course]="course"
+  [isDeleted]="true"
+  (del)="deleteCourse($event)"
+/>
+} @empty {
+<div class="card">
+  <div class="card-body text-center">Aucun cours trouvés</div>
 </div>
+}

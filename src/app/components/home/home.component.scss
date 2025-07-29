@@ -1,4 +1,4 @@
-img {
+img.banner {
   width: 100%;
   height: 80vh;
   object-fit: cover;
@@ -13,9 +13,4 @@ img {
   h1 {
     font-size: 3rem;
   }
-}
-
-section.courses {
-  background-color: #effeff;
-  padding: 6vh;
 }
